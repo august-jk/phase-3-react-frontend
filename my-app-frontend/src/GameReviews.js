@@ -1,7 +1,7 @@
 import React from "react";
 import Game from "./Game";
 
-function GameReviews({ games, reviews, onDelete, onEdit }) {
+function GameReviews({ games, reviews, onDelete, onEdit, onChange, formData }) {
     
    const renderList = games.map(game => {
         const currentGameReviews = reviews.filter(review => review.game_id === game.id)
@@ -15,6 +15,8 @@ function GameReviews({ games, reviews, onDelete, onEdit }) {
             reviews={currentGameReviews}
             onDelete={onDelete}
             onEdit={onEdit}
+            onChange={onChange}
+            formData={formData}
         />)})
     return (
         <div>

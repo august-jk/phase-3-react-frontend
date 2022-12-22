@@ -8,6 +8,18 @@ import GameReviews from './GameReviews';
 function App() {
   const [games, setGames] = useState();
   const [reviews, setReviews] = useState();
+  const [formData, setFormData] = useState({
+    score: '',
+    comment: '',
+});
+function handleChange(event) {
+    let name = event.target.name;
+    let value = event.target.value
+    setFormData({
+        ...formData,
+        [name]: value,
+    })
+}  
   
   useEffect(() => {
     fetch('http://localhost:9292/games')
@@ -28,11 +40,22 @@ function App() {
     console.log(id)
   }
  
+ 
   return (
     <div className="App">
       <Navbar />
       <Routes>
-        <Route path='/game-reviews' element={<GameReviews games={games} reviews={reviews} onDelete={handleDelete} onEdit={handleEdit}/>}></Route>
+        <Route path='/game-reviews' element={
+        <GameReviews 
+        games={games} 
+        reviews={reviews} 
+        onDelete={handleDelete} 
+        onEdit={handleEdit}
+        onChange={handleChange}
+        formData={formData}
+        />}>
+
+        </Route>
         <Route path='/' element={<Home />}></Route>
       </Routes>
     </div>

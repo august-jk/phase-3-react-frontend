@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import Reviews from './Reviews'
 
-function Game({ id, title, genre, platform, price, reviews, onDelete, onEdit }) {
+function Game({ id, title, genre, platform, price, reviews, onDelete, onEdit, onPatch, onChange, formData }) {
     const [isActive, setIsActive] = useState(false);
     function handleClick() {
         setIsActive(!isActive)
@@ -13,7 +13,10 @@ function Game({ id, title, genre, platform, price, reviews, onDelete, onEdit }) 
             score={review.score}
             comment={review.comment} 
             onDelete={onDelete}
-            onEdit={onEdit}   
+            onEdit={onEdit}  
+            onPatch={onPatch} 
+            onChange={onChange}
+            formData={formData}
         />)
     const averageScore = Math.ceil(reviews.reduce((a, b) => a + b.score, 0) / reviews.length);
     const star = '⭐'
