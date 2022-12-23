@@ -1,25 +1,23 @@
 import React, {useState} from "react";
 import Reviews from './Reviews'
 
-function Game({ id, title, genre, platform, price, reviews, onDelete, onEdit, onPatch, onChange, formData }) {
+function Game({ id, title, genre, platform, price, reviews, onDelete, onUpdateReviews }) {
     const [isActive, setIsActive] = useState(false);
     function handleClick() {
         setIsActive(!isActive)
     }
-    const renderReviews = reviews.map(review => 
+    const currentGameReviews = reviews.filter(review => review.game_id === id)
+    const renderReviews = currentGameReviews.map(review => 
         <Reviews 
             id={review.id}
             name={review.name}
             score={review.score}
             comment={review.comment} 
-            onDelete={onDelete}
-            onEdit={onEdit}  
-            onPatch={onPatch} 
-            onChange={onChange}
-            formData={formData}
+            onDelete={onDelete} 
+            onUpdateReviews={onUpdateReviews}
         />)
-    const averageScore = Math.ceil(reviews.reduce((a, b) => a + b.score, 0) / reviews.length);
-    const star = '⭐'
+        const averageScore = Math.ceil(currentGameReviews.reduce((a, b) => a + b.score, 0) / currentGameReviews.length);
+        const star = '⭐'
     return(
         <div className="col-sm-6" id={id}>
         <div className="card">

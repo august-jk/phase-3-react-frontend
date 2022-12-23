@@ -8,19 +8,7 @@ import GameReviews from './GameReviews';
 function App() {
   const [games, setGames] = useState();
   const [reviews, setReviews] = useState();
-  const [formData, setFormData] = useState({
-    score: '',
-    comment: '',
-});
-function handleChange(event) {
-    let name = event.target.name;
-    let value = event.target.value
-    setFormData({
-        ...formData,
-        [name]: value,
-    })
-}  
-  
+ 
   useEffect(() => {
     fetch('http://localhost:9292/games')
     .then(r => r.json())
@@ -36,11 +24,17 @@ function handleChange(event) {
     })
     .then(setReviews(updatedReviews))
   }
-  function handleEdit(id) {
-    console.log(id)
+  
+  function handleUpdateReviews(updatedReviewObj) {
+    const updatedReviews = reviews.map(review => {
+      if (review.id === updatedReviewObj.id) 
+        return updatedReviewObj
+      else {
+        return review
+      }
+    })
+    setReviews(updatedReviews)
   }
- 
- 
   return (
     <div className="App">
       <Navbar />
@@ -50,9 +44,7 @@ function handleChange(event) {
         games={games} 
         reviews={reviews} 
         onDelete={handleDelete} 
-        onEdit={handleEdit}
-        onChange={handleChange}
-        formData={formData}
+        onUpdateReviews={handleUpdateReviews}
         />}>
 
         </Route>
