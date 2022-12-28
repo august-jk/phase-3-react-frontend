@@ -12,7 +12,7 @@ function GameReviews({ games, reviews, onDelete, onUpdateReviews, onAddReview })
             genre={game.genre} 
             platform={game.platform} 
             price={game.price} 
-            reviews={reviews}
+            reviews={game.reviews}
             onDelete={onDelete}
             onUpdateReviews={onUpdateReviews}
             onAddReview={onAddReview}

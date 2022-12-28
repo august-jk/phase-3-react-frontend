@@ -2,7 +2,8 @@ import React, {useState} from "react";
 import Reviews from './Reviews'
 import AddReviewForm from "./AddReviewForm";
 
-function Game({ id, title, genre, platform, price, reviews, onDelete, onUpdateReviews, onAddReview }) {
+function Game({ id, title, genre, platform, price, reviews }) {
+    const [gameReviews, setGameReviews] = useState(reviews);
     const [showReviews, setShowReviews] = useState(false);
     const [showForm, setShowForm] = useState(false)
     const [formData, setFormData] = useState({
@@ -11,6 +12,28 @@ function Game({ id, title, genre, platform, price, reviews, onDelete, onUpdateRe
         score: '',
         comment: '',
     });
+    function handleDelete(id) {
+        const updatedReviews = gameReviews.filter(review =>review.id !== id)
+        fetch(`http://localhost:9292/reviews/${id}`, {
+          method: 'DELETE'
+        })
+        .then(setGameReviews(updatedReviews))
+      }
+      
+      function handleUpdateReviews(updatedReviewObj) {
+        const updatedReviews = gameReviews.map(review => {
+          if (review.id === updatedReviewObj.id) 
+            return updatedReviewObj
+          else {
+            return review
+          }
+        })
+        setGameReviews(updatedReviews)
+      }
+    
+      function handleAddReview(newReview) {
+        setGameReviews([...gameReviews, newReview])
+      }
     function handleChange(event) {
       let name = event.target.name;
       let value = event.target.value
@@ -25,19 +48,19 @@ function Game({ id, title, genre, platform, price, reviews, onDelete, onUpdateRe
     function handleShowForm() {
         setShowForm(!showForm)
     }
-    const currentGameReviews = reviews.filter(review => review.game_id === id)
-    const renderReviews = currentGameReviews.map(review => 
+    // const currentGameReviews = reviews.filter(review => review.game_id === id)
+    const renderReviews = gameReviews.map(review => 
         <Reviews 
             id={review.id}
             name={review.name}
             score={review.score}
             comment={review.comment} 
-            onDelete={onDelete} 
+            onDelete={handleDelete} 
             onChange={handleChange}
             formData={formData}
-            onUpdateReviews={onUpdateReviews}
+            onUpdateReviews={handleUpdateReviews}
         />)
-        const averageScore = Math.ceil(currentGameReviews.reduce((a, b) => a + b.score, 0) / currentGameReviews.length);
+        const averageScore = Math.ceil(gameReviews.reduce((a, b) => a + b.score, 0) / gameReviews.length);
         const star = '⭐'
     return(
         <div className="col-sm-6" id={id}>
@@ -54,7 +77,7 @@ function Game({ id, title, genre, platform, price, reviews, onDelete, onUpdateRe
                     <div className="panel">
                         {showForm ? 
                         <AddReviewForm 
-                        onAddReview={onAddReview}
+                        onAddReview={handleAddReview}
                         onChange={handleChange}
                         formData={formData}
                         /> : null}

@@ -1,70 +1,46 @@
-# Getting Started with Create React App
+# Sinatra/React Phase 3 Project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Hello and welcome to my phase 3 project!
 
-## Available Scripts
+This Project showcases a sinatra backend and react frontend.
 
-In the project directory, you can run:
+All of the included data has been seeded.
 
-### `npm start`
+## About the Application
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Here you will see a list of games and their related reviews.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+In the backend, which will be linked at the bottom, you will see that I have 2 models with a one-to-many relationship: each game has many reviews and each review belongs to a game.
 
-### `npm test`
+## Add New Games 
+If you click on the Add New Game tab from the Navbar, you can create new game instances.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+These new instances will pop up on the bottom of the Game Reviews page.
 
-### `npm run build`
+## Game Reviews
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+On the Game Reviews page, you can see a list of all of the games that have been added.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Each game has a title, genre, platform, price, and average score.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+There are also two buttons on each game "card" which are labeled Show Reviews and Review Game. Clicking on either of these will show the reviews or create a new review, respectively.
 
-### `npm run eject`
+## Show Reviews
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Each game has a list of reviews, once you click on the Show Reviews button on the game "card", the list of reviews will appear.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Create Review
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+You can create new reviews for each game. Just click on the Review Game button at the bottom of the game "card" to add a review to the game.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Each review consists of the reviewer's name, the score they are giving the game, and their comment.
 
-## Learn More
+(Note: depending on the scores of the reviews, the average score on the game "card" will adjust to reflect the average)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Edit and Delete Reviews
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+On each review there are two buttons, the ❌ and ✏️.
 
-### Code Splitting
+If you click on the ❌ button, the review will be deleted.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+If you click on the ✏️ button, you can edit the score and comment on the review. Just click the 💾 button once you're done to save the changes made to the review.

@@ -14,9 +14,9 @@ function App() {
     fetch('http://localhost:9292/games')
     .then(r => r.json())
     .then(data => setGames(data))
-    fetch('http://localhost:9292/reviews')
-    .then(r => r.json())
-    .then(data => setReviews(data))
+    // fetch('http://localhost:9292/reviews')
+    // .then(r => r.json())
+    // .then(data => setReviews(data))
   }, [])
   function handleDelete(id) {
     const updatedReviews = reviews.filter(review =>review.id !== id)
