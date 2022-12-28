@@ -1,8 +1,8 @@
 import React from "react";
 import Game from "./Game";
 
-function GameReviews({ games, reviews, onDelete, onUpdateReviews }) {
-    
+
+function GameReviews({ games, reviews, onDelete, onUpdateReviews, onAddReview }) {
    const renderList = games.map(game => {
         
         return(
@@ -15,6 +15,7 @@ function GameReviews({ games, reviews, onDelete, onUpdateReviews }) {
             reviews={reviews}
             onDelete={onDelete}
             onUpdateReviews={onUpdateReviews}
+            onAddReview={onAddReview}
         />)})
     return (
         <div>

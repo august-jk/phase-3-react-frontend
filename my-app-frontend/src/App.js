@@ -4,6 +4,7 @@ import { Route, Routes } from 'react-router-dom';
 import Home from './Home';
 import Navbar from './Navbar';
 import GameReviews from './GameReviews';
+import NewGameForm from './NewGameForm';
 
 function App() {
   const [games, setGames] = useState();
@@ -35,6 +36,14 @@ function App() {
     })
     setReviews(updatedReviews)
   }
+
+  function handleAddReview(newReview) {
+    setReviews([...reviews, newReview])
+  }
+
+  function handleAddGame(newGame) {
+    setGames([...games, newGame])
+  }
   return (
     <div className="App">
       <Navbar />
@@ -45,10 +54,17 @@ function App() {
         reviews={reviews} 
         onDelete={handleDelete} 
         onUpdateReviews={handleUpdateReviews}
+        onAddReview={handleAddReview}
         />}>
 
         </Route>
         <Route path='/' element={<Home />}></Route>
+      </Routes>
+      <Routes>
+        <Route path='/new-game' element={
+          <NewGameForm onAddGame={handleAddGame}/>
+        }>
+        </Route>
       </Routes>
     </div>
   );

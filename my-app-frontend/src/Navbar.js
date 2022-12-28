@@ -8,6 +8,7 @@ function Navbar() {
                 <ul className="navbar-nav me-auto">
                     <li className="nav-item"><NavLink to="/" className="nav-link">Home</NavLink></li>
                     <li className="nav-item"><NavLink to='/game-reviews' className="nav-link">Game Reviews</NavLink></li>
+                    <li className="nav-item"><NavLink to='/new-game' className="nav-link">Add New Game</NavLink></li>
                 </ul>
             </div>
         </nav>

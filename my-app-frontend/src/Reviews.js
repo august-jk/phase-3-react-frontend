@@ -1,21 +1,9 @@
 import React, {useState} from "react";
 import Form from "./Form";
 
-function Reviews({ id, name, score, comment, onDelete, onUpdateReviews }) {
+function Reviews({ id, name, score, comment, onDelete, onUpdateReviews, onChange, formData }) {
     const [edit, setEdit] = useState(false);
-    const [formData, setFormData] = useState({
-        id: id,
-        score: '',
-        comment: '',
-    });
-    function handleChange(event) {
-      let name = event.target.name;
-      let value = event.target.value
-      setFormData({
-          ...formData,
-          [name]: value,
-      })
-    }
+    
     const star = '⭐'
     const emojiScore = star.repeat(score)
     function handleClick() {
@@ -43,7 +31,7 @@ function Reviews({ id, name, score, comment, onDelete, onUpdateReviews }) {
             {edit ? 
             <Form 
             formData={formData} 
-            onChange={handleChange} 
+            onChange={onChange} 
             handleSubmit={handleSubmit} 
             name={name}
             id={id}
@@ -53,8 +41,8 @@ function Reviews({ id, name, score, comment, onDelete, onUpdateReviews }) {
                     <li className="list-group-item">Score: {emojiScore}</li> 
                     <li className="list-group-item">{comment}</li>
                     <li>
-                        <button onClick={() => onDelete(id)} type="button">❌</button>
-                        <button onClick={handleClick} type="button">✏️</button>
+                        <button onClick={() => onDelete(id)} type="button" className="btn btn-outline-primary">❌</button>
+                        <button onClick={handleClick} type="button" className="btn btn-outline-primary">✏️</button>
                     </li>
                 </ul>}
         </div>
