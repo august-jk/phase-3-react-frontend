@@ -1,25 +1,32 @@
-import React from "react";
+import React, {useState} from "react";
 import Game from "./Game";
+import NewGameForm from "./NewGameForm";
 
 
-function GameReviews({ games, reviews, onDelete, onUpdateReviews, onAddReview }) {
+function GameReviews({ games, onAddGame }) {
+    const [isActive, setIsActive] = useState(false)
+ 
+    function handleClick() {
+        setIsActive(!isActive)
+    }
    const renderList = games.map(game => {
-        
         return(
-        <Game 
+            <Game 
             id={game.id}
             title={game.title} 
             genre={game.genre} 
             platform={game.platform} 
             price={game.price} 
             reviews={game.reviews}
-            onDelete={onDelete}
-            onUpdateReviews={onUpdateReviews}
-            onAddReview={onAddReview}
-        />)})
+            
+        />
+        )
+   })
     return (
         <div>
             <h1>Game Reviews</h1>
+            <button onClick={handleClick} >Add Game</button>
+            {isActive ? <NewGameForm onAddGame={onAddGame}/> : null}
             <div className="row">
                 {renderList}
             </div>

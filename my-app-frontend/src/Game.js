@@ -1,9 +1,9 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Reviews from './Reviews'
 import AddReviewForm from "./AddReviewForm";
 
 function Game({ id, title, genre, platform, price, reviews }) {
-    const [gameReviews, setGameReviews] = useState(reviews);
+    const [gameReviews, setGameReviews] = useState([]);
     const [showReviews, setShowReviews] = useState(false);
     const [showForm, setShowForm] = useState(false)
     const [formData, setFormData] = useState({
@@ -12,6 +12,7 @@ function Game({ id, title, genre, platform, price, reviews }) {
         score: '',
         comment: '',
     });
+    useEffect(() => setGameReviews(reviews), [reviews])
     function handleDelete(id) {
         const updatedReviews = gameReviews.filter(review =>review.id !== id)
         fetch(`http://localhost:9292/reviews/${id}`, {
@@ -20,7 +21,7 @@ function Game({ id, title, genre, platform, price, reviews }) {
         .then(setGameReviews(updatedReviews))
       }
       
-      function handleUpdateReviews(updatedReviewObj) {
+    function handleUpdateReviews(updatedReviewObj) {
         const updatedReviews = gameReviews.map(review => {
           if (review.id === updatedReviewObj.id) 
             return updatedReviewObj
@@ -29,18 +30,32 @@ function Game({ id, title, genre, platform, price, reviews }) {
           }
         })
         setGameReviews(updatedReviews)
-      }
+        setFormData({
+            id: id,
+            name: '',
+            score: '',
+            comment: '',
+        })
+    }
     
-      function handleAddReview(newReview) {
+    function handleAddReview(newReview) {
         setGameReviews([...gameReviews, newReview])
-      }
+        setFormData({
+            id: id,
+            name: '',
+            score: '',
+            comment: '',
+        })
+        setShowForm(!showForm)
+    }
+
     function handleChange(event) {
-      let name = event.target.name;
-      let value = event.target.value
-      setFormData({
+        let name = event.target.name;
+        let value = event.target.value
+        setFormData({
           ...formData,
           [name]: value,
-      })
+        })
     }
     function handleShowReviews() {
         setShowReviews(!showReviews)
@@ -48,20 +63,52 @@ function Game({ id, title, genre, platform, price, reviews }) {
     function handleShowForm() {
         setShowForm(!showForm)
     }
-    // const currentGameReviews = reviews.filter(review => review.game_id === id)
-    const renderReviews = gameReviews.map(review => 
-        <Reviews 
-            id={review.id}
-            name={review.name}
-            score={review.score}
-            comment={review.comment} 
-            onDelete={handleDelete} 
-            onChange={handleChange}
-            formData={formData}
-            onUpdateReviews={handleUpdateReviews}
-        />)
-        const averageScore = Math.ceil(gameReviews.reduce((a, b) => a + b.score, 0) / gameReviews.length);
-        const star = '⭐'
+    function renderReviews() {
+        if(reviews === undefined) {
+            console.log('undefined')
+            return(
+                <p className="list-group-item">No reviews yet!</p >
+            )
+        }
+        else if(gameReviews.length === 0){
+            return(
+                <p className="list-group-item">No reviews yet!</p >
+            )
+        }
+        else{
+            return(
+                gameReviews.map(review => 
+                    <Reviews 
+                        id={review.id}
+                        name={review.name}
+                        score={review.score}
+                        comment={review.comment} 
+                        onDelete={handleDelete} 
+                        onChange={handleChange}
+                        formData={formData}
+                        onUpdateReviews={handleUpdateReviews}
+                    />)
+            )
+        }
+    }
+    function averageScoreCalculator() {
+        if(reviews === undefined ) {
+            console.log('undefined')
+            return(
+                <p className="list-group-item">N/A</p >
+            )
+        }
+        else if(gameReviews.length === 0)
+            return(
+                <p className="list-group-item">N/A</p >
+            )
+       else{
+            const averageScore = Math.ceil(gameReviews.reduce((a, b) => a + b.score, 0) / gameReviews.length);
+            const star = '⭐'
+            return(star.repeat(averageScore))
+        } 
+    }
+
     return(
         <div className="col-sm-6" id={id}>
         <div className="card">
@@ -70,7 +117,7 @@ function Game({ id, title, genre, platform, price, reviews }) {
                 <li className="list-group-item">{genre}</li>
                 <li className="list-group-item">{platform}</li>
                 <li className="list-group-item">$ {price}</li>
-                <li className="list-group-item">{star.repeat(averageScore)}</li>
+                <li className="list-group-item">{averageScoreCalculator()}</li>
                 <li className="list-group-item">
                     <button className="accordian btn btn-outline-primary" onClick={handleShowReviews}>Show Reviews</button>
                     <button className='accordian btn btn-outline-primary' onClick={handleShowForm}>Review Game</button>
@@ -82,7 +129,7 @@ function Game({ id, title, genre, platform, price, reviews }) {
                         formData={formData}
                         /> : null}
                         {showReviews ? 
-                        renderReviews : null}
+                        renderReviews() : null}
                     </div>
                 </li>
             </ul>

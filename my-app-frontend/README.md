@@ -13,7 +13,7 @@ Here you will see a list of games and their related reviews.
 In the backend, which will be linked at the bottom, you will see that I have 2 models with a one-to-many relationship: each game has many reviews and each review belongs to a game.
 
 ## Add New Games 
-If you click on the Add New Game tab from the Navbar, you can create new game instances.
+If you click on the Add Game button at the top of the page, you can create new game instances.
 
 These new instances will pop up on the bottom of the Game Reviews page.
 

@@ -31,6 +31,12 @@ function NewGameForm({ onAddGame }) {
           })
         .then(r => r.json())
         .then(newGame => onAddGame(newGame))
+        .then(setGameData({
+            title: '',
+            genre: '',
+            platform: '',
+            price: '',
+        }))
       }
     return(
         <div className="container" >
