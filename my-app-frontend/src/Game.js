@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import Reviews from './Reviews'
 import AddReviewForm from "./AddReviewForm";
 
-function Game({ id, title, genre, platform, price, reviews }) {
+function Game({ id, title, genre, platform, price, reviews, averageScore, updateGames }) {
     const [gameReviews, setGameReviews] = useState([]);
     const [showReviews, setShowReviews] = useState(false);
     const [showForm, setShowForm] = useState(false)
@@ -79,6 +79,7 @@ function Game({ id, title, genre, platform, price, reviews }) {
             return(
                 gameReviews.map(review => 
                     <Reviews 
+                        gameId={review.game_id}
                         id={review.id}
                         name={review.name}
                         score={review.score}
@@ -103,7 +104,7 @@ function Game({ id, title, genre, platform, price, reviews }) {
                 <p className="list-group-item">N/A</p >
             )
        else{
-            const averageScore = Math.ceil(gameReviews.reduce((a, b) => a + b.score, 0) / gameReviews.length);
+            // const averageScore = Math.ceil(gameReviews.reduce((a, b) => a + b.score, 0) / gameReviews.length);
             const star = '⭐'
             return(star.repeat(averageScore))
         } 

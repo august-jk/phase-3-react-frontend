@@ -3,7 +3,7 @@ import Game from "./Game";
 import NewGameForm from "./NewGameForm";
 
 
-function GameReviews({ games, onAddGame }) {
+function GameReviews({ games, onAddGame, updateGames }) {
     const [isActive, setIsActive] = useState(false)
  
     function handleClick() {
@@ -18,7 +18,8 @@ function GameReviews({ games, onAddGame }) {
             platform={game.platform} 
             price={game.price} 
             reviews={game.reviews}
-            
+            averageScore={game.average_score}
+            updateGames={updateGames}
         />
         )
    })

@@ -12,7 +12,9 @@ function App() {
     .then(data => setGames(data))
   }, [])
 
-  
+  function updateGames() {
+    setGames(games)
+  }
   function handleAddGame(newGame) {
     setGames([...games, newGame])
     console.log(newGame.reviews)
@@ -22,6 +24,7 @@ function App() {
         <GameReviews 
         games={games}
         onAddGame={handleAddGame} 
+        updateGames={updateGames}
         />
     </div>
   );
